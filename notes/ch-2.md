@@ -78,4 +78,26 @@ var average = (min + max) / 2;
 > [!IMPORTANT]
 > everything up to this point is considered the **front end** of the implementation
 
+## 5. Intermediate Representation 
+
+* This step is the middle ground with no tie between the front end and the backend
+
+> [!IMPORTANT]
+> You can think of the compiler as a pipeline where each stage's job is to organize the data representing the user's code in a way that makes the next stage simpler to implement
+> the front end of the pipeline is specific to the source language the program is written in.
+> the back end is concerned with the final architecture where the program will run
+
+* *IR* is in the middle
+* this isn't tied to either the source or destination 
+* this lets you support multiple source languages and target platforms 
+
+#### ***Additional Notes to review***
+
+* control flow graph
+* static single assignment
+* continuation passing style 
+* three address code
+
+
+
 

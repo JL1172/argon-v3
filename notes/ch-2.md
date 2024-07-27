@@ -98,6 +98,39 @@ var average = (min + max) / 2;
 * continuation passing style 
 * three address code
 
+## 6. Optimization
+
+* This section of language implementation is where the magic happens
+* optimizations can be heavily made or not, it is up to the creator
+* optimizations such as ***constant folding*** take place 
+  * constant folding: if some expression always evaluates to the exact same value we can do the evaluation at compile time and replace the code for the expression with its result. This could be like memoization.
+
+> [!IMPORTANT]
+> constant propagation
+> common subexpression elimination 
+> loop invariant code motion
+> global value umbering 
+> strength reduction
+> scalar replacement of aggregates
+> dead code elimination 
+> loop unrolling 
+
+## 7. Code generation
+
+* this can take place *natively* or on a *VM*
+
+## 8. Virtual machine
+
+## 9. runtime
+
+* garbage collection
+
+## Shortcuts and alternate routes
+
+* single pass compiler 
+
+
+
 
 
 

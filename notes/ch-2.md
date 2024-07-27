@@ -128,6 +128,11 @@ var average = (min + max) / 2;
 ## Shortcuts and alternate routes
 
 * single pass compiler 
+* tree walk interpreters
+* transpilers 
+* jit
+
+
 
 
 

@@ -53,4 +53,20 @@
 
 - The operators all have same precedence, but in order to add higher priority to operator, add `()` around operator and its operands
 
+## Statements 
+
+* where an expression's mainb job is to produce a *value*, a statement's job is to produce an *effect*
+
+#### Some Examples of statements
+
+```
+print "hello world";
+```
+
+* an expression followed by a semicolon is an *expression statement*
+
+### Variables 
+
+* You declare variabels using *var* statements. if you omit the initializer, the variable's value default to *nil*
+
 

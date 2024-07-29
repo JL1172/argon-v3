@@ -41,3 +41,16 @@
 123=="123" //false values of difference types are never equivalent because type coercion does not happen at equality checking. no no to implicit conversions
 ```
 
+### Logical Operators
+
+- and for && 
+- or for || 
+- ! for not
+
+* did not implement && or || because bitwise operations are not implemented in Argon
+
+### Precedence and grouping 
+
+- The operators all have same precedence, but in order to add higher priority to operator, add `()` around operator and its operands
+
+

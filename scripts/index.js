@@ -1,6 +1,6 @@
 import { exec } from "child_process";
 import * as fs from "fs";
-
+//! this will be used in the future, utilizing batch script right now
 async function PRE_COMMIT_HOOK() {
   try {
     const file_path = ".git/COMMIT_EDITMSG";

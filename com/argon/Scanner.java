@@ -62,7 +62,7 @@ class Scanner {
                 addToken(TokenType.STAR);
                 break;
             default:
-                Argon.error(line, "Unexpect Character.");
+                Argon.error(line, "Unexpected Character.");
                 break;
         }
     }

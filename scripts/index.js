@@ -27,5 +27,4 @@ async function PRE_COMMIT_HOOK() {
     process.exit(1);
   }
 }
-
 PRE_COMMIT_HOOK();

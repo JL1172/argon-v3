@@ -13,12 +13,26 @@ async function PRE_COMMIT_HOOK() {
         }
       });
     });
-    const new_commit_message = `JL ArgonV3 ${new Date().toISOString()} \n [ ${commit_message} ]`;
-    fs.writeFile(file_path, new_commit_message, (err) => {
-      if (err) {
-        throw new Error(err);
-      }
+    const new_commit_message = `JL ArgonV3 ${new Date().toISOString()} \n [${commit_message}]`;
+    await new Promise((resolve, reject) => {
+      fs.writeFile(file_path, new_commit_message, (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
     });
+    const validated_commit_message = await new Promise((resolve, reject) => {
+      fs.readFile(file_path, "utf-8", (err, data) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(data);
+        }
+      });
+    });
+    console.log(validated_commit_message);
     console.log("Status Code 0");
   } catch (err) {
     console.error(`Error Staging File For Commit: ${err.message || err}`);

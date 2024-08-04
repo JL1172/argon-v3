@@ -69,4 +69,15 @@ print "hello world";
 
 * You declare variabels using *var* statements. if you omit the initializer, the variable's value default to *nil*
 
+### Closures 
+
+* functions are *first class* in Argon, which just means they are real values that you can get a reference to, store in variables, pass around
+
+### classes
+
+* classes are almost exactly like javascript except instead of using extends for a sub class, you use `<` and then instead of constructor() you do `init()` and when feeding a superclass's constructor method with an argument from its subclass you do `super.init()`
+
+* instantiations and initialization is exactly as you'd expect.
+
+
 

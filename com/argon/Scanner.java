@@ -13,8 +13,8 @@ class Scanner {
 
     Scanner(String source) {
         this.source = source;
-    } 
-    
+    }
+
     List<Token> scanTokens() {
         while (!isAtEnd()) {
             this.start = this.current;
@@ -30,28 +30,53 @@ class Scanner {
 
     private void scanToken() {
         char c = advance();
-        switch(c) {
-            case '(' : addToken(TokenType.LEFT_PAREN); break;
-            case ')' : addToken(TokenType.RIGHT_PAREN); break;
-            case '{' : addToken(TokenType.LEFT_BRACE); break;   
-            case '}' : addToken(TokenType.RIGHT_BRACE); break;   
-            case ',' : addToken(TokenType.COMMA); break;   
-            case '.' : addToken(TokenType.DOT); break;   
-            case '-' : addToken(TokenType.MINUS); break;   
-            case '+' : addToken(TokenType.PLUS); break;   
-            case ';' : addToken(TokenType.SEMICOLON); break;   
-            case '*' : addToken(TokenType.STAR); break;   
+        switch (c) {
+            case '(':
+                addToken(TokenType.LEFT_PAREN);
+                break;
+            case ')':
+                addToken(TokenType.RIGHT_PAREN);
+                break;
+            case '{':
+                addToken(TokenType.LEFT_BRACE);
+                break;
+            case '}':
+                addToken(TokenType.RIGHT_BRACE);
+                break;
+            case ',':
+                addToken(TokenType.COMMA);
+                break;
+            case '.':
+                addToken(TokenType.DOT);
+                break;
+            case '-':
+                addToken(TokenType.MINUS);
+                break;
+            case '+':
+                addToken(TokenType.PLUS);
+                break;
+            case ';':
+                addToken(TokenType.SEMICOLON);
+                break;
+            case '*':
+                addToken(TokenType.STAR);
+                break;
+            default:
+                Argon.error(line, "Unexpect Character.");
+                break;
         }
     }
 
     private char advance() {
         return this.source.charAt(current++);
     }
+
     private void addToken(TokenType type) {
         addToken(type, null);
     }
+
     private void addToken(TokenType type, Object literal) {
-        String text = source.substring(start,current);
+        String text = source.substring(start, current);
         tokens.add(new Token(type, text, literal, line));
     }
 }

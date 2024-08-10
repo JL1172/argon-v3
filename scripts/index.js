@@ -17,13 +17,11 @@ async function NOTE_SCRIPT() {
         }
       });
     });
-    console.log(commit_message);
     console.log(commit_message.split(" ").at(-1));
     let last_three_chars = commit_message.split(" ").at(-1) === "f$$";
     if (last_three_chars === true) {
       console.log("Proceeding automated commit ammendment.");
     } else {
-      last_three_chars = true;
       const answer = readline.keyInYN("Write this commit msg to file?");
       if (answer) {
         const time_stamp = new Date().toDateString();
@@ -37,40 +35,40 @@ async function NOTE_SCRIPT() {
           });
         });
 
-        const command_one_stdout = await new Promise((resolve, reject) => {
-          exec("git add .", (error, stdout) => {
-            if (error) {
-              reject("Git Add Error: \n" + error);
-            } else {
-              resolve(stdout);
-            }
-          });
-        });
-        console.log(
-          `COMMAND ONE STDOUT [git add . command result]: ${command_one_stdout}`
-        );
+        // const command_one_stdout = await new Promise((resolve, reject) => {
+        //   exec("git add .", (error, stdout) => {
+        //     if (error) {
+        //       reject("Git Add Error: \n" + error);
+        //     } else {
+        //       resolve(stdout);
+        //     }
+        //   });
+        // });
+        // console.log(
+        //   `COMMAND ONE STDOUT [git add . command result]: ${command_one_stdout} EOF`
+        // );
 
-        const recent_msg = await new Promise((resolve, reject) => {
-          fs.readFile(path, { encoding: "utf-8" }, (error, data) => {
-            if (error) {
-              reject("Read Commit Message Error no2: \n" + error);
-            } else {
-              resolve(data);
-            }
-          });
-        });
-        const command_two_stdout = await new Promise((resolve, reject) => {
-          exec(`git commit -m "${recent_msg} f$$"`, (error, stdout) => {
-            if (error) {
-              reject("Git Commit -m Error [custom flag]: \n" + error);
-            } else {
-              resolve(stdout);
-            }
-          });
-        });
-        console.log(
-          `COMMAND TWO STDOUT [git commit -m f$$ command result]: ${command_two_stdout}`
-        );
+        // const recent_msg = await new Promise((resolve, reject) => {
+        //   fs.readFile(path, { encoding: "utf-8" }, (error, data) => {
+        //     if (error) {
+        //       reject("Read Commit Message Error no2: \n" + error);
+        //     } else {
+        //       resolve(data);
+        //     }
+        //   });
+        // });
+        // const command_two_stdout = await new Promise((resolve, reject) => {
+        //   exec(`git commit -m "${recent_msg} f$$"`, (error, stdout) => {
+        //     if (error) {
+        //       reject("Git Commit -m Error [custom flag]: \n" + error);
+        //     } else {
+        //       resolve(stdout);
+        //     }
+        //   });
+        // });
+        // console.log(
+        //   `COMMAND TWO STDOUT [git commit -m f$$ command result]: ${command_two_stdout}`
+        // );
       } else {
         console.log("Proceeding with commit (regular)");
       }

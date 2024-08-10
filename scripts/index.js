@@ -19,10 +19,11 @@ async function NOTE_SCRIPT() {
     });
     console.log(commit_message);
     console.log(commit_message.split(" ").at(-1));
-    const last_three_chars = commit_message.split(" ").at(-1) === "f$$";
+    let last_three_chars = commit_message.split(" ").at(-1) === "f$$";
     if (last_three_chars === true) {
       console.log("Proceeding automated commit ammendment.");
     } else {
+      last_three_chars = true;
       const answer = readline.keyInYN("Write this commit msg to file?");
       if (answer) {
         const time_stamp = new Date().toDateString();

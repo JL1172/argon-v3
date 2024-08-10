@@ -17,6 +17,7 @@ async function NOTE_SCRIPT() {
         }
       });
     });
+    const last_three_chars = commit_message.split(" ").at(-1).trim();
     if (last_three_chars.trim() === "---f") {
       console.log("Proceeding automated commit ammendment.");
     } else {

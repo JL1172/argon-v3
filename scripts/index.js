@@ -3,11 +3,11 @@ import * as readline from "readline-sync";
 import { exec } from "child_process";
 
 async function NOTE_SCRIPT() {
-  //want to alter commit message 
+  //want to alter commit message
   try {
     //grab path
     const path = ".git/COMMIT_EDITMSG";
-    //read commit message 
+    //read commit message
     const commit_message = await new Promise((resolve, reject) => {
       fs.readFile(path, { encoding: "utf-8" }, (error, data) => {
         if (error) {
@@ -17,8 +17,11 @@ async function NOTE_SCRIPT() {
         }
       });
     });
+    console.log("commit_message");
     console.log(commit_message.split(" ").at(-1));
-    let last_three_chars = commit_message.split(" ").at(-1) === "---f";
+    console.log(commit_message);
+    const last_three_chars = commit_message.split(" ").at(-1) === "---f";
+    console.log("commit_message");
     if (last_three_chars === true) {
       console.log("Proceeding automated commit ammendment.");
     } else {

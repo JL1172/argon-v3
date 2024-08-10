@@ -59,7 +59,7 @@ async function NOTE_SCRIPT() {
           });
         });
         const command_two_stdout = await new Promise((resolve, reject) => {
-          exec(`git commit -m ${recent_msg} f$$`, (error, stdout) => {
+          exec(`git commit -m "${recent_msg} f$$"`, (error, stdout) => {
             if (error) {
               reject("Git Commit -m Error [custom flag]: \n" + error);
             } else {

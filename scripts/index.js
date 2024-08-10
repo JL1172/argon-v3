@@ -23,35 +23,35 @@ async function NOTE_SCRIPT() {
       const formatted_note = `> [!IMPORTANT] This Note Gives Details On Where I Left Off\n # ${time_stamp} JL ArgonV3 \n # Description: \n ${commit_message}`;
       const file_name = time_stamp.concat(" JL Argon-V3.md");
       fs.writeFileSync(`notes/${file_name}`, formatted_note);
-      const command_one_stdout = await new Promise((resolve, reject) => {
-        exec("git add .", (error, stdout) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(stdout);
-          }
-        });
-      });
-      console.log(`COMMAND ONE STDOUT: ${command_one_stdout}`);
-      const past_commit_message = await new Promise((resolve, reject) => {
-        fs.readFile(path, (error, data) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(data);
-          }
-        });
-      });
-      const command_two_stdout = await new Promise((resolve, reject) => {
-        exec(`git commit -m "${past_commit_message}"`, (error, stdout) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(stdout);
-          }
-        });
-      });
-      console.log(`COMMAND TWO STDOUT: ${command_two_stdout}`);
+      // const command_one_stdout = await new Promise((resolve, reject) => {
+      //   exec("git add .", (error, stdout) => {
+      //     if (error) {
+      //       reject(error);
+      //     } else {
+      //       resolve(stdout);
+      //     }
+      //   });
+      // });
+      // console.log(`COMMAND ONE STDOUT: ${command_one_stdout}`);
+      // const past_commit_message = await new Promise((resolve, reject) => {
+      //   fs.readFile(path, (error, data) => {
+      //     if (error) {
+      //       reject(error);
+      //     } else {
+      //       resolve(data);
+      //     }
+      //   });
+      // });
+      // const command_two_stdout = await new Promise((resolve, reject) => {
+      //   exec(`git commit -m "${past_commit_message}"`, (error, stdout) => {
+      //     if (error) {
+      //       reject(error);
+      //     } else {
+      //       resolve(stdout);
+      //     }
+      //   });
+      // });
+      // console.log(`COMMAND TWO STDOUT: ${command_two_stdout}`);
     } else {
       console.log("Proceeding with commit.");
     }

@@ -12,10 +12,10 @@ async function NOTE_SCRIPT() {
         } else {
           resolve(data);
         }
-      })
-        .split("")
-        .at(-1);
-    });
+      });
+    })
+      .split("")
+      .at(-1);
     if (cmsg !== "$") {
       const answer = readline.keyInYN(
         "Is This Your Final Commit Of The Day? - if (YES) (THEN) script will write a file with progress notes"

@@ -3,4 +3,4 @@
 
  # Description: 
 
- Note to anyone observing and to myself down the road. The past several commits, staged or unstaged have been tests for my commit msg hook. I have been attempting to add a feature overideable by a ---f successing flag to write to a file where i left off for ease for my future self so i can jump back into things quicker. Changed some markdown in the messaging for the file
+ here is what i have completed so far, I have finished a script that performs the following function: \n alters the commit message and transforms it to a systematic and organized message and also gives an option to write an 'end of the day' progress report which gives me the ability to make a note of where i left off with any details that might make it easier to work on later. also I have successfully implemented methods that parse digits and strings from lexemes in the lexer or scanner, moving onto reserved words and identifiers

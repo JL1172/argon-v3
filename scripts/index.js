@@ -18,7 +18,7 @@ async function NOTE_SCRIPT() {
       });
     });
     console.log(commit_message.split(" ").at(-1));
-    let last_three_chars = commit_message.split(" ").at(-1) === "f$$";
+    let last_three_chars = commit_message.split(" ").at(-1) === "---f";
     if (last_three_chars === true) {
       console.log("Proceeding automated commit ammendment.");
     } else {

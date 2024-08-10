@@ -4,56 +4,70 @@ import { exec } from "child_process";
 
 async function NOTE_SCRIPT() {
   try {
-    const answer = readline.keyInYN(
-      "Is This Your Final Commit Of The Day? - if (YES) (THEN) script will write a file with progress notes"
-    );
-    if (answer === true || answer) {
-      //handles y or n bool || string cases
-      const path = ".git/COMMIT_EDITMSG";
-      const commit_message = await new Promise((resolve, reject) => {
-        fs.readFile(path, (error, data) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(data);
-          }
+    const cmsg = await new Promise((resolve, reject) => {
+      fs.readFile(path, (error, data) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(data);
+        }
+      })
+        .split("")
+        .at(-1);
+    });
+    if (cmsg !== "$") {
+      const answer = readline.keyInYN(
+        "Is This Your Final Commit Of The Day? - if (YES) (THEN) script will write a file with progress notes"
+      );
+      if (answer === true || answer) {
+        //handles y or n bool || string cases
+        const path = ".git/COMMIT_EDITMSG";
+        const commit_message = await new Promise((resolve, reject) => {
+          fs.readFile(path, (error, data) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(data);
+            }
+          });
         });
-      });
-      const time_stamp = new Date().toDateString();
-      const formatted_note = `> [!IMPORTANT] This Note Gives Details On Where I Left Off\n # ${time_stamp} JL ArgonV3 \n # Description: \n ${commit_message}`;
-      const file_name = time_stamp.concat(" JL Argon-V3.md");
-      fs.writeFileSync(`notes/${file_name}`, formatted_note);
+        const time_stamp = new Date().toDateString();
+        const formatted_note = `> [!IMPORTANT] This Note Gives Details On Where I Left Off\n\n # ${time_stamp} JL ArgonV3 \n\n # Description: \n\n ${commit_message}`;
+        const file_name = time_stamp.concat(" JL Argon-V3.md");
+        fs.writeFileSync(`notes/${file_name}`, formatted_note);
 
-      // const command_one_stdout = await new Promise((resolve, reject) => {
-      //   exec("git add .", (error, stdout) => {
-      //     if (error) {
-      //       reject(error);
-      //     } else {
-      //       resolve(stdout);
-      //     }
-      //   });
-      // });
-      // console.log(`COMMAND ONE STDOUT: ${command_one_stdout}`);
-      // const past_commit_message = await new Promise((resolve, reject) => {
-      //   fs.readFile(path, (error, data) => {
-      //     if (error) {
-      //       reject(error);
-      //     } else {
-      //       resolve(data);
-      //     }
-      //   });
-      // });
-      // const command_two_stdout = await new Promise((resolve, reject) => {
-      //   exec(`git commit -m "${past_commit_message}"`, (error, stdout) => {
-      //     if (error) {
-      //       reject(error);
-      //     } else {
-      //       resolve(stdout);
-      //     }
-      //   });
-      // });
-      // console.log(`COMMAND TWO STDOUT: ${command_two_stdout}`);
-      
+        const command_one_stdout = await new Promise((resolve, reject) => {
+          exec("git add .", (error, stdout) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(stdout);
+            }
+          });
+        });
+        console.log(`COMMAND ONE STDOUT: ${command_one_stdout}`);
+        const past_commit_message = await new Promise((resolve, reject) => {
+          fs.readFile(path, (error, data) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(data);
+            }
+          });
+        });
+        const command_two_stdout = await new Promise((resolve, reject) => {
+          exec(`git commit -m "${past_commit_message} $"`, (error, stdout) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(stdout);
+            }
+          });
+        });
+        console.log(`COMMAND TWO STDOUT: ${command_two_stdout}`);
+      } else {
+        console.log("Proceeding with commit.");
+      }
     } else {
       console.log("Proceeding with commit.");
     }

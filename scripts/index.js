@@ -15,7 +15,7 @@ async function NOTE_SCRIPT() {
         }
       });
     });
-    const last_four_chars = commit_message.split(" ").at(-1) === "---f";
+    const last_four_chars = commit_message.split(" ").at(-1) === "f$$";
     if (last_four_chars === true) {
       console.log("Proceeding automated commit ammendment.");
     } else {
@@ -53,7 +53,7 @@ async function NOTE_SCRIPT() {
         });
       });
       const command_two_stdout = await new Promise((resolve, reject) => {
-        exec(`git commit -m ${recent_msg} ---f`, (error, stdout) => {
+        exec(`git commit -m ${recent_msg} f$$`, (error, stdout) => {
           if (error) {
             throw new Error("Git Commit -m Error [custom flag]: \n" + error);
           } else {
@@ -62,10 +62,12 @@ async function NOTE_SCRIPT() {
         });
       });
       console.log(
-        `COMMAND TWO STDOUT [git commit -m ---f command result]: ${command_two_stdout}`
+        `COMMAND TWO STDOUT [git commit -m f$$ command result]: ${command_two_stdout}`
       );
     }
   } catch (err) {
+    console.trace();
+    console.timeStamp();
     console.error(
       `\nAn Error Running [NOTE SCRIPT] on commit has propagated: \n`
     );

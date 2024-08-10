@@ -24,7 +24,7 @@ async function NOTE_SCRIPT() {
       const answer = readline.keyInYN("Write this commit msg to file?");
       if (answer) {
         const time_stamp = new Date().toDateString();
-        const formatted_note = `> [!IMPORTANT] Notes For ${time_stamp} JL ArgonV3 \n\n # Description: \n\n ${commit_message}`;
+        const formatted_note = `> [!IMPORTANT] \n > These Notes Are For User JL \n\n # Description: \n\n ${commit_message}`;
         const file_name = time_stamp.concat(" JL Argon-V3.md");
 
         await new Promise((resolve, reject) => {

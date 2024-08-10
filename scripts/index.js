@@ -56,10 +56,10 @@ async function NOTE_SCRIPT() {
         });
         console.log(`COMMAND TWO STDOUT: ${command_two_stdout}`);
       } else {
-        console.log("Proceeding with commit.");
+        console.log("Proceeding with commit (a).");
       }
     } else {
-      console.log("Proceeding with commit.");
+      console.log("Proceeding with commit (b).");
     }
   } catch (err) {
     console.error(

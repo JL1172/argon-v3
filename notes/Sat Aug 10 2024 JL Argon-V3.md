@@ -1,7 +1,5 @@
-> [!IMPORTANT] This Note Gives Details On Where I Left Off
-
- # Sat Aug 10 2024 JL ArgonV3 
+> [!IMPORTANT] Notes For Sat Aug 10 2024 JL ArgonV3 
 
  # Description: 
 
- test for pre-commit hook no.8.2
+ final commit of pre-commit test

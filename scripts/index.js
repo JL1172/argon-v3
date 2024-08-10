@@ -23,8 +23,11 @@ async function NOTE_SCRIPT() {
       const formatted_note = `> [!IMPORTANT] Notes For ${time_stamp} JL ArgonV3 \n\n # Description: \n\n ${commit_message}`;
       const file_name = time_stamp.concat(" JL Argon-V3.md");
 
-      fs.writeFile(`notes/${file_name}`, formatted_note, "utf-8", (error) => {
-        throw new Error("Write File Error: " + error);
+      await new Promise((resolve, reject) => {
+        fs.writeFile(`notes/${file_name}`, formatted_note, (error) => {
+          if (error) reject("Write File Error: " + error);
+          else resolve();
+        });
       });
 
       const command_one_stdout = await new Promise((resolve, reject) => {

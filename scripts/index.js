@@ -45,19 +45,10 @@ async function NOTE_SCRIPT() {
           });
         });
         console.log(`COMMAND ONE STDOUT: ${command_one_stdout}`);
-        const past_commit_message = await new Promise((resolve, reject) => {
-          fs.readFile(path, (error, data) => {
-            if (error) {
-              reject("Read Commit Message Error no3: \n" + error);
-            } else {
-              resolve(data);
-            }
-          });
-        });
         const command_two_stdout = await new Promise((resolve, reject) => {
-          exec(`git commit -m "${past_commit_message} $"`, (error, stdout) => {
+          exec(`git commit -a"`, (error, stdout) => {
             if (error) {
-              reject("Git Commit -M Error: \n" + error);
+              reject("Git Commit -a Error: \n" + error);
             } else {
               resolve(stdout);
             }

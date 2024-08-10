@@ -8,12 +8,13 @@ async function NOTE_SCRIPT() {
     const cmsg = await new Promise((resolve, reject) => {
       fs.readFile(path, { encoding: "utf-8" }, (error, data) => {
         if (error) {
-          reject(error);
+          reject("Read Commit Message Error no1: \n" + error);
         } else {
           resolve(data);
         }
       });
     });
+    console.log(cmsg.split(""));
     if (cmsg.split("").at(-1) !== "$") {
       const answer = readline.keyInYN(
         "Is This Your Final Commit Of The Day? - if (YES) (THEN) script will write a file with progress notes"
@@ -23,7 +24,7 @@ async function NOTE_SCRIPT() {
         const commit_message = await new Promise((resolve, reject) => {
           fs.readFile(path, { encoding: "utf-8" }, (error, data) => {
             if (error) {
-              reject(error);
+              reject("Read Commit Message Error no2: \n" + error);
             } else {
               resolve(data);
             }
@@ -32,12 +33,12 @@ async function NOTE_SCRIPT() {
         const time_stamp = new Date().toDateString();
         const formatted_note = `> [!IMPORTANT] This Note Gives Details On Where I Left Off\n\n # ${time_stamp} JL ArgonV3 \n\n # Description: \n\n ${commit_message}`;
         const file_name = time_stamp.concat(" JL Argon-V3.md");
-        fs.writeFileSync(`notes/${file_name}`,formatted_note);
+        fs.writeFileSync(`notes/${file_name}`, formatted_note);
 
         const command_one_stdout = await new Promise((resolve, reject) => {
           exec("git add .", (error, stdout) => {
             if (error) {
-              reject(error);
+              reject("Git Add Error: \n" + error);
             } else {
               resolve(stdout);
             }
@@ -47,7 +48,7 @@ async function NOTE_SCRIPT() {
         const past_commit_message = await new Promise((resolve, reject) => {
           fs.readFile(path, (error, data) => {
             if (error) {
-              reject(error);
+              reject("Read Commit Message Error no3: \n" + error);
             } else {
               resolve(data);
             }
@@ -56,7 +57,7 @@ async function NOTE_SCRIPT() {
         const command_two_stdout = await new Promise((resolve, reject) => {
           exec(`git commit -m "${past_commit_message} $"`, (error, stdout) => {
             if (error) {
-              reject(error);
+              reject("Git Commit -M Error: \n" + error);
             } else {
               resolve(stdout);
             }
@@ -71,7 +72,7 @@ async function NOTE_SCRIPT() {
     }
   } catch (err) {
     console.error(
-      `An Error Running [NOTE SCRIPT] on commit has propagated: \n`
+      `\nAn Error Running [NOTE SCRIPT] on commit has propagated: \n`
     );
     console.error(err);
     process.exit(0);

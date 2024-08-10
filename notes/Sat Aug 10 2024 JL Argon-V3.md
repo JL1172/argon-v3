@@ -4,5 +4,5 @@
 
  # Description: 
 
- test for pre-commit hook no.7.4
+ test for pre-commit hook no.7.5
  $

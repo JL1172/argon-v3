@@ -1,49 +1,36 @@
-import { exec } from "child_process";
 import * as fs from "fs";
-//! this will be used in the future, utilizing batch script right now
-async function PRE_COMMIT_HOOK() {
+import * as readline from "readline-sync";
+
+async function NOTE_SCRIPT() {
   try {
-    const file_path = ".git/COMMIT_EDITMSG";
-    const commit_message = await new Promise((resolve, reject) => {
-      fs.readFile(file_path, "utf-8", (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve(data);
-        }
-      });
-    });
-    const new_commit_message = `JL ArgonV3 ${new Date().toISOString()} \n [${commit_message}]`;
-    await new Promise((resolve, reject) => {
-      fs.writeFile(
-        file_path,
-        new_commit_message,
-        { encoding: "utf-8" },
-        (err) => {
-          if (err) {
-            reject(err);
+    const answer = readline.keyInYN(
+      "Is This Your Final Commit Of The Day? - if (YES) (THEN) script will write a file with progress notes"
+    );
+    if (answer === true || answer) {
+      const path = ".git/COMMIT_EDITMSG";
+      const commit_message = await new Promise((resolve, reject) => {
+        fs.readFile(path, (error, data) => {
+          if (error) {
+            reject(error);
           } else {
-            resolve();
+            resolve(data);
           }
-        }
-      );
-    });
-    await new Promise((resolve, reject) => {
-      fs.readFile(file_path, "utf-8", (err, data) => {
-        if (err) {
-          reject(err);
-        } else {
-          console.log(data);
-          resolve(data);
-        }
+        });
       });
-    });
-    console.log("Status Code 0");
+      const time_stamp = new Date().toDateString();
+      const formatted_note = `> [!IMPORTANT] This Note Gives Details On Where I Left Off\n # ${time_stamp} JL ArgonV3 \n # Description: \n ${commit_message}`;
+      const file_name = time_stamp.concat(" JL Argon-V3");
+      fs.writeFileSync(`notes/${file_name}`, formatted_note);
+    } else {
+      console.log("Proceeding with commit.");
+    }
   } catch (err) {
-    console.error(`Error Staging File For Commit: ${err.message || err}`);
-    console.timeStamp();
-    console.trace();
-    process.exit(1);
+    console.error(
+      `An Error Running [NOTE SCRIPT] on commit has propagated: \n`
+    );
+    console.error(err);
+    process.exit(0);
   }
 }
-PRE_COMMIT_HOOK();
+
+NOTE_SCRIPT();

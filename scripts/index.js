@@ -46,7 +46,7 @@ async function NOTE_SCRIPT() {
         });
         console.log(`COMMAND ONE STDOUT: ${command_one_stdout}`);
         const command_two_stdout = await new Promise((resolve, reject) => {
-          exec(`git commit -a"`, (error, stdout) => {
+          exec(`git commit -a`, (error, stdout) => {
             if (error) {
               reject("Git Commit -a Error: \n" + error);
             } else {

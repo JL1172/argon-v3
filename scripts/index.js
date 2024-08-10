@@ -6,7 +6,7 @@ async function NOTE_SCRIPT() {
     const answer = readline.keyInYN(
       "Is This Your Final Commit Of The Day? - if (YES) (THEN) script will write a file with progress notes"
     );
-    if (answer === true || answer) {
+    if (answer === true || answer) { //handles y or n bool || string cases
       const path = ".git/COMMIT_EDITMSG";
       const commit_message = await new Promise((resolve, reject) => {
         fs.readFile(path, (error, data) => {

@@ -6,7 +6,7 @@ async function NOTE_SCRIPT() {
   try {
     const path = ".git/COMMIT_EDITMSG";
     const cmsg = await new Promise((resolve, reject) => {
-      fs.readFile(path, (error, data) => {
+      fs.readFile(path, { encoding: "utf-8" }, (error, data) => {
         if (error) {
           reject(error);
         } else {
@@ -21,7 +21,7 @@ async function NOTE_SCRIPT() {
       if (answer === true || answer) {
         //handles y or n bool || string cases
         const commit_message = await new Promise((resolve, reject) => {
-          fs.readFile(path, (error, data) => {
+          fs.readFile(path, { encoding: "utf-8" }, (error, data) => {
             if (error) {
               reject(error);
             } else {
@@ -32,7 +32,7 @@ async function NOTE_SCRIPT() {
         const time_stamp = new Date().toDateString();
         const formatted_note = `> [!IMPORTANT] This Note Gives Details On Where I Left Off\n\n # ${time_stamp} JL ArgonV3 \n\n # Description: \n\n ${commit_message}`;
         const file_name = time_stamp.concat(" JL Argon-V3.md");
-        fs.writeFileSync(`notes/${file_name}`, formatted_note);
+        fs.writeFileSync(`notes/${file_name}`,formatted_note);
 
         const command_one_stdout = await new Promise((resolve, reject) => {
           exec("git add .", (error, stdout) => {

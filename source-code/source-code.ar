@@ -1,1 +1,9 @@
+/* this should be ignored by the parser */
 var average = (min + max) / 2;
+print("hello world");
+//this should also be ignored by the parser
+/*
+and this too
+// danger this is a nested comment that should be ignored
+fdsad + = / - gettttt outtttt
+*/

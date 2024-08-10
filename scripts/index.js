@@ -65,9 +65,6 @@ async function NOTE_SCRIPT() {
             }
           });
         });
-        console.log(
-          `COMMAND TWO STDOUT [git commit -m f$$ command result]: ${command_two_stdout}`
-        );
       } else {
         console.log("Proceeding with commit (regular)");
       }

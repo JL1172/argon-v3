@@ -1,7 +1,9 @@
 package com.argon;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 class Scanner {
 
@@ -10,6 +12,27 @@ class Scanner {
     private int start = 0;
     private int current = 0;
     private int line = 0;
+    private static final Map<String, TokenType> keywords;
+
+    static {
+        keywords = new HashMap<>();
+        keywords.put("and", TokenType.AND);
+        keywords.put("class", TokenType.CLASS);
+        keywords.put("else", TokenType.ELSE);
+        keywords.put("false", TokenType.FALSE);
+        keywords.put("for", TokenType.FOR);
+        keywords.put("fun", TokenType.FUN);
+        keywords.put("if", TokenType.IF);
+        keywords.put("nil", TokenType.NIL);
+        keywords.put("or", TokenType.OR);
+        keywords.put("print", TokenType.PRINT);
+        keywords.put("return", TokenType.RETURN);
+        keywords.put("super", TokenType.SUPER);
+        keywords.put("this", TokenType.THIS);
+        keywords.put("true", TokenType.TRUE);
+        keywords.put("var", TokenType.VAR);
+        keywords.put("while", TokenType.WHILE);
+    }
 
     Scanner(String source) {
         this.source = source;
@@ -78,6 +101,11 @@ class Scanner {
                     while (peek() != '\n' && !isAtEnd()) {
                         advance();
                     }
+                } else if (match('*')) {
+                    while (!isAtEnd() && (peek() != '*' || peekNext() != '/')) {
+                        advance();
+                    }
+                    multiLineCommentAdvance();
                 } else {
                     addToken(TokenType.SLASH);
                 }
@@ -95,11 +123,35 @@ class Scanner {
             default:
                 if (isDigit(c)) {
                     number();
+                } else if (isAlpha(c)) {
+                    identifer();
                 } else {
                     Argon.error(line, "Unexpected Character.");
                 }
                 break;
         }
+    }
+
+    private boolean isAlpha(char c) {
+        return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
+    }
+    private void multiLineCommentAdvance() {
+        this.source.charAt(current += 2);
+    }
+    private void identifer() {
+        while (isAlphanumeric(peek())) {
+            advance();
+        }
+        String text = source.substring(start, current);
+        TokenType type = keywords.get(text);
+        if (type == null) {
+            type = TokenType.IDENTIFIER;
+        }
+        addToken(type);
+    }
+
+    private boolean isAlphanumeric(char c) {
+        return isAlpha(c) || isDigit(c);
     }
 
     private boolean isDigit(char c) {

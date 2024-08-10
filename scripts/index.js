@@ -3,9 +3,11 @@ import * as readline from "readline-sync";
 import { exec } from "child_process";
 
 async function NOTE_SCRIPT() {
+  //want to alter commit message 
   try {
+    //grab path
     const path = ".git/COMMIT_EDITMSG";
-    //handles y or n bool || string cases
+    //read commit message 
     const commit_message = await new Promise((resolve, reject) => {
       fs.readFile(path, { encoding: "utf-8" }, (error, data) => {
         if (error) {
@@ -15,55 +17,62 @@ async function NOTE_SCRIPT() {
         }
       });
     });
-    const last_four_chars = commit_message.split(" ").at(-1) === "f$$";
-    if (last_four_chars === true) {
+    console.log(commit_message);
+    console.log(commit_message.split(" ").at(-1));
+    const last_three_chars = commit_message.split(" ").at(-1) === "f$$";
+    if (last_three_chars === true) {
       console.log("Proceeding automated commit ammendment.");
     } else {
-      const time_stamp = new Date().toDateString();
-      const formatted_note = `> [!IMPORTANT] Notes For ${time_stamp} JL ArgonV3 \n\n # Description: \n\n ${commit_message}`;
-      const file_name = time_stamp.concat(" JL Argon-V3.md");
+      const answer = readline.keyInYN("Write this commit msg to file?");
+      if (answer) {
+        const time_stamp = new Date().toDateString();
+        const formatted_note = `> [!IMPORTANT] Notes For ${time_stamp} JL ArgonV3 \n\n # Description: \n\n ${commit_message}`;
+        const file_name = time_stamp.concat(" JL Argon-V3.md");
 
-      await new Promise((resolve, reject) => {
-        fs.writeFile(`notes/${file_name}`, formatted_note, (error) => {
-          if (error) reject("Write File Error: " + error);
-          else resolve();
+        await new Promise((resolve, reject) => {
+          fs.writeFile(`notes/${file_name}`, formatted_note, (error) => {
+            if (error) reject("Write File Error: " + error);
+            else resolve();
+          });
         });
-      });
 
-      const command_one_stdout = await new Promise((resolve, reject) => {
-        exec("git add .", (error, stdout) => {
-          if (error) {
-            reject("Git Add Error: \n" + error);
-          } else {
-            resolve(stdout);
-          }
+        const command_one_stdout = await new Promise((resolve, reject) => {
+          exec("git add .", (error, stdout) => {
+            if (error) {
+              reject("Git Add Error: \n" + error);
+            } else {
+              resolve(stdout);
+            }
+          });
         });
-      });
-      console.log(
-        `COMMAND ONE STDOUT [git add . command result]: ${command_one_stdout}`
-      );
+        console.log(
+          `COMMAND ONE STDOUT [git add . command result]: ${command_one_stdout}`
+        );
 
-      const recent_msg = await new Promise((resolve, reject) => {
-        fs.readFile(path, { encoding: "utf-8" }, (error, data) => {
-          if (error) {
-            reject("Read Commit Message Error no2: \n" + error);
-          } else {
-            resolve(data);
-          }
+        const recent_msg = await new Promise((resolve, reject) => {
+          fs.readFile(path, { encoding: "utf-8" }, (error, data) => {
+            if (error) {
+              reject("Read Commit Message Error no2: \n" + error);
+            } else {
+              resolve(data);
+            }
+          });
         });
-      });
-      const command_two_stdout = await new Promise((resolve, reject) => {
-        exec(`git commit -m ${recent_msg} f$$`, (error, stdout) => {
-          if (error) {
-            throw new Error("Git Commit -m Error [custom flag]: \n" + error);
-          } else {
-            console.log(`COMMAND TWO STDOUT: ${stdout}`);
-          }
+        const command_two_stdout = await new Promise((resolve, reject) => {
+          exec(`git commit -m ${recent_msg} f$$`, (error, stdout) => {
+            if (error) {
+              reject("Git Commit -m Error [custom flag]: \n" + error);
+            } else {
+              resolve(stdout);
+            }
+          });
         });
-      });
-      console.log(
-        `COMMAND TWO STDOUT [git commit -m f$$ command result]: ${command_two_stdout}`
-      );
+        console.log(
+          `COMMAND TWO STDOUT [git commit -m f$$ command result]: ${command_two_stdout}`
+        );
+      } else {
+        console.log("Proceeding with commit (regular)");
+      }
     }
   } catch (err) {
     console.trace();

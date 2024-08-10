@@ -4,6 +4,7 @@ import { exec } from "child_process";
 
 async function NOTE_SCRIPT() {
   try {
+    const path = ".git/COMMIT_EDITMSG";
     const cmsg = await new Promise((resolve, reject) => {
       fs.readFile(path, (error, data) => {
         if (error) {
@@ -21,7 +22,6 @@ async function NOTE_SCRIPT() {
       );
       if (answer === true || answer) {
         //handles y or n bool || string cases
-        const path = ".git/COMMIT_EDITMSG";
         const commit_message = await new Promise((resolve, reject) => {
           fs.readFile(path, (error, data) => {
             if (error) {

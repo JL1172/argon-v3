@@ -20,11 +20,10 @@ async function NOTE_SCRIPT() {
     console.log("commit_message");
     console.log(commit_message.split(" ").at(-1));
     console.log(commit_message);
-    console.log( typeof commit_message);
-    const last_three_chars = commit_message.split(" ").at(-1);
+    const last_three_chars = commit_message.split(" ").at(-1).trim();
     console.log(last_three_chars);
     console.log("commit_message");
-    if (last_three_chars === "---f") {
+    if (last_three_chars.trim() === "---f") {
       console.log("Proceeding automated commit ammendment.");
     } else {
       const answer = readline.keyInYN("Write this commit msg to file?");

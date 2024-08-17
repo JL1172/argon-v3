@@ -13,12 +13,11 @@ abstract class Expression {
         final Expression right;
     }
     static class Unary extends Expression {
-        
-    }
-    static class Operator extends Expression {
-        
-    }
-    static class Literal extends Expression {
-        
+        Unary(Token operator, Expression right) {
+            this.operator = operator;
+            this.right = right;
+        }
+        final Token operator;
+        final Expression right;
     }
 }

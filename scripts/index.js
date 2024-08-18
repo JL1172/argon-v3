@@ -3,11 +3,8 @@ import * as readline from "readline-sync";
 import { exec } from "child_process";
 
 async function NOTE_SCRIPT() {
-  //want to alter commit message
   try {
-    //grab path
     const path = ".git/COMMIT_EDITMSG";
-    //read commit message
     const commit_message = await new Promise((resolve, reject) => {
       fs.readFile(path, { encoding: "utf-8" }, (error, data) => {
         if (error) {
